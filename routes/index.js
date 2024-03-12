@@ -24,10 +24,10 @@ router.post('/', [
     });
 
     function checkTarget() {
-      const xRangePositive = targetCharacter.xCoordinate + 0.8;
-      const xRangeNegative = targetCharacter.xCoordinate - 0.8;
-      const yRangePositive = targetCharacter.yCoordinate + 2;
-      const yRangeNegative = targetCharacter.yCoordinate - 2;
+      const xRangePositive = targetCharacter.xCoordinate + 2;
+      const xRangeNegative = targetCharacter.xCoordinate - 2;
+      const yRangePositive = targetCharacter.yCoordinate + 4;
+      const yRangeNegative = targetCharacter.yCoordinate - 4;
 
       if (
         req.body.xCoordinate >= xRangeNegative &&
