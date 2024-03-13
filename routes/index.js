@@ -13,7 +13,7 @@ router.post('/', [
     .escape(),
 
   body('xCoordinate').notEmpty().withMessage('input is empty').trim().escape(),
-  body('xCoordinate').notEmpty().withMessage('input is empty').trim().escape(),
+  body('yCoordinate').notEmpty().withMessage('input is empty').trim().escape(),
 
   expressAsyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
