@@ -5,6 +5,30 @@ const Characters = require('../models/characters');
 const expressAsyncHandler = require('express-async-handler');
 const { body, validationResult } = require('express-validator');
 
+let startTime = 0;
+let elapsedTime = 0;
+
+function setTimer(status) {
+  if (status) setInterval(updateTime, 10);
+  if (!status) clearInterval(setInterval(updateTime, 10));
+}
+
+function updateTime() {
+  elapsedTime = new Date().getTime() - startTime;
+  console.log(elapsedTime);
+}
+
+router.get('/', (req, res) => {
+  startTime = new Date().getTime();
+  setTimer(true);
+  return res.json('Game Starts');
+});
+
+router.get('/gameover', (req, res) => {
+  setTimer(false);
+  return res.json('Game Ends');
+});
+
 router.post('/', [
   body('targetCharacterName')
     .notEmpty()
