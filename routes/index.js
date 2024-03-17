@@ -7,15 +7,15 @@ const { body, validationResult } = require('express-validator');
 
 let startTime = 0;
 let elapsedTime = 0;
+let id;
 
 function setTimer(status) {
-  if (status) setInterval(updateTime, 10);
-  if (!status) clearInterval(setInterval(updateTime, 10));
+  if (status) id = setInterval(updateTime, 10);
+  if (!status) clearInterval(id);
 }
 
 function updateTime() {
   elapsedTime = new Date().getTime() - startTime;
-  console.log(elapsedTime);
 }
 
 router.get('/', (req, res) => {
@@ -26,7 +26,15 @@ router.get('/', (req, res) => {
 
 router.get('/gameover', (req, res) => {
   setTimer(false);
-  return res.json('Game Ends');
+  const minCalc = Math.floor((elapsedTime / 1000 / 60) << 0);
+  const secCalc = Math.floor((elapsedTime / 1000) % 60);
+  const msCalc = ((elapsedTime / 1000) % 60).toFixed(2).slice(-2);
+
+  const minutes = minCalc.toString().padStart(2, '0');
+  const seconds = secCalc.toString().padStart(2, '0');
+  const milliseconds = msCalc.toString().padStart(2, '0');
+  const formattedTime = `${minutes}:${seconds}:${milliseconds}`;
+  return res.json(formattedTime);
 });
 
 router.post('/', [
