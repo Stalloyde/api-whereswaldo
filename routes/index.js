@@ -27,18 +27,29 @@ function updateTime() {
 }
 
 function getFormattedTime(gameScore = elapsedTime) {
-  const minCalc = Math.floor((elapsedTime / 1000 / 60) << 0);
-  const secCalc = Math.floor((elapsedTime / 1000) % 60);
-  const msCalc = ((elapsedTime / 1000) % 60).toFixed(2).slice(-2);
+  const minCalc = Math.floor((gameScore / 1000 / 60) << 0);
+  const secCalc = Math.floor((gameScore / 1000) % 60);
+  const msCalc = ((gameScore / 1000) % 60).toFixed(2).slice(-2);
 
   const minutes = minCalc.toString().padStart(2, '0');
   const seconds = secCalc.toString().padStart(2, '0');
   const milliseconds = msCalc.toString().padStart(2, '0');
-  const formattedTime = `${minutes}:${seconds}:${milliseconds}`;
-  return formattedTime;
+
+  if (minutes > 0) {
+    return `${minutes}:${seconds}:${milliseconds}`;
+  }
+  return `${seconds}:${milliseconds}`;
 }
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+  const data = await Score.find({}).sort({ score: 1 }).limit(10);
+  const topScores = data.map((data) => {
+    return { score: getFormattedTime(data.score), username: data.username };
+  });
+  return res.json(topScores);
+});
+
+router.get('/gamestart', (req, res) => {
   resetTimer();
   startTime = new Date().getTime();
   setTimer(true);
@@ -68,7 +79,7 @@ router.post('/gameover', [
   }),
 ]);
 
-router.post('/', [
+router.post('/gamestart', [
   body('targetCharacterName')
     .notEmpty()
     .withMessage('input is empty')
