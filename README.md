@@ -1,14 +1,14 @@
-LINK TO LIVE APP: https://blogapi-client-stalloyde.vercel.app/
+LINK TO LIVE APP: https://wheres-waldo-six.vercel.app/
 
 This is the repo of the back-end server of Where's Waldo game developed using the following technologies:
 
 Front-end: React + Typescript + Vitest 
 Back-end: NodeJS + Express
 Database: MongoDB
+Deployment: Fly.io
 
-Here are the links to repos associated to this project:
-
-CLIENT: https://github.com/Stalloyde/blogapi-client
+Here is the link to the client-side repo of this project:
+https://github.com/Stalloyde/wheres-waldo
 
 This project highlights the following skills:
 
