@@ -12,7 +12,7 @@ const indexRouter = require('./routes/index');
 const app = express();
 
 const corsOptions = {
-  origin: 'https://wheres-waldo-six.vercel.app',
+  origin: ['https://wheres-waldo-six.vercel.app', 'http://localhost:5173'],
   optionsSuccessStatus: 200,
 };
 
